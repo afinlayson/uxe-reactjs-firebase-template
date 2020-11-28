@@ -1,0 +1,81 @@
+.root {
+    position: relative;
+    border: 0px solid black;
+    box-shadow: 0 0 1px 1px black;
+    margin: 50px;
+    /* left:50%;
+    top:50%;
+    transform: translate(-50%, -50%); */
+}
+
+.title {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 100;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.username {
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    /* border:0; */
+    left:5%;
+    width: 90%;
+    margin: 10px;
+}
+
+.password {
+    margin: 10px;
+    left:5%;
+    width: 90%;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    /* border:1px;         */
+}
+
+.form {
+    justify-content: center;
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    /* left:50%; */
+    top:0px;    
+    /* transform:translate(-50%,0); */
+}
+
+.submit {
+    position: relative;
+    left: 5%;
+    width: 90%;
+    border: 0px;
+    font-weight: 100;
+}
+
+.entry {
+    display:flex;
+    position: relative;
+    left:50%;
+    top:0%;
+    transform: translate(-50%, 0%);
+    border: black solid 1px;
+}
+
+.google {
+    display:flex;
+    /* left: 50%;
+    transform: translate(-50%,0); */
+    justify-items: center;
+    align-items: center;
+    align-self: center;
+}
+
+
+.loginProviderButton {
+    justify-content: center;
+    border: 0px;
+    color: white;
+    background: white;
+}
