@@ -1,0 +1,94 @@
+.AuthBox {
+    position: relative;
+    border: 0px solid black;
+    box-shadow: 0 0 1px 1px black;
+    margin: 50px;
+}
+
+.AuthTitle {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 100;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.AuthEmail {
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    /* border:0; */
+    left:5%;
+    width: 90%;
+    margin: 10px;
+}
+
+.AuthPassword {
+    margin: 10px;
+    left:5%;
+    width: 90%;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    /* border:1px;         */
+}
+
+.AuthForm {
+    justify-content: center;
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    /* left:50%; */
+    top:0px;    
+    /* transform:translate(-50%,0); */
+}
+
+.AuthSubmit {
+    position: relative;
+    left: 5%;
+    width: 90%;
+    border: 0px;
+    font-weight: 100;
+}
+
+.AuthEntry {
+    display:flex;
+    position: relative;
+    left:50%;
+    top:0%;
+    transform: translate(-50%, 0%);
+    border: black solid 1px;
+}
+
+.AuthGoogle {
+    display:flex;
+    /* left: 50%;
+    transform: translate(-50%,0); */
+    justify-items: center;
+    align-items: center;
+    align-self: center;
+}
+
+
+.AuthLoginProviderButton {
+    justify-content: center;
+    border: 0px;
+    color: white;
+    background: white;
+}
+
+.AuthLoginProviderImage {
+    height: 75%;
+    width: 75%;
+}
+
+.AuthLoginProvider {
+    justify-content: center;
+    display: flex;   
+}
+
+.AuthPadding {
+    position: relative;
+    height: 20px;
+    width: 100%;   
+}
