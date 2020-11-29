@@ -15,9 +15,19 @@ class Firebase {
     constructor() {
         // console.log(dotenv, process.env);
         app.initializeApp(config);
-        this.googleProvider = app.auth.GoogleAuthProvider()
+        this.googleProvider = new app.auth.GoogleAuthProvider();
+        
+        this.facebookProvider = new app.auth.FacebookAuthProvider();
+        this.twitterProvider = new app.auth.TwitterAuthProvider();        
+        this.emailAuthProvider = app.auth.EmailAuthProvider;
+        this.serverValue = app.database.ServerValue;
         this.auth = app.auth();
         this.db = app.database();
+    }
+
+    isSignedIn() {       
+        // debugger 
+        return this.auth.currentUser !== null ;
     }
 
     doCreateUserWithEmailAndPassword = (email, password) =>
@@ -27,26 +37,67 @@ class Firebase {
         this.auth.signInWithEmailAndPassword(email, password);
 
     doSignOut = () => this.auth.signOut();
-   
+
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
- 
+
+    onAuthUserListener = (next, fallback) =>
+    this.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        this.user(authUser.uid)
+          .once('value')
+          .then(snapshot => {
+            const dbUser = snapshot.val();
+
+            if (!dbUser) {
+                fallback();
+                return;
+            }
+            // default empty roles
+            // debugger
+            if (!dbUser.roles) {
+              dbUser.roles = {};
+            }
+
+            // merge auth and db user
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              providerData: authUser.providerData,
+              ...dbUser,
+            };
+
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
+
+    doSendEmailVerification = () =>
+        this.auth.currentUser.sendEmailVerification({
+            url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+        });
+
     doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
 
-          // *** User API ***
- 
+
+    signInWithGoogle = () =>
+        this.auth.signInWithPopup(this.googleProvider);
+
+    signInWithFacebook = () =>
+        this.auth.signInWithPopup(this.facebookProvider);
+
+    signInWithTwitter = () =>
+        this.auth.signInWithPopup(this.twitterProvider);
+
+    
+    // *** User API *** 
     user = uid => this.db.ref(`users/${uid}`);
     
     users = () => this.db.ref('users');
 
-    
-    signInWithGoogle = () => {
-        this.auth.signInWithPopup(this.googleProvider).then((res) => {
-            console.log(res.user)
-        }).catch((error) => {
-            console.log(error.message)
-        });
-    }
 }
 
 export default Firebase;
