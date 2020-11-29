@@ -1,14 +1,53 @@
-a {
-    text-decoration: none;
-}
 
 .navigation {
+    /* position: fixed; */
     display:flex;
-    flex-direction:row;    
-    margin: 10px;
+    flex-direction:row;   
+    background: white;
+
+    overflow-y: hidden;
+    transition: 0.5s;
+    height: 0;
+    /* padding-top: 20px; */
+}
+.navigationMargin { 
+    margin-top: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    z-index: 2;
+    width: 100%;
+}
+
+.navigation a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.navigation a:hover {
+    color: #5eff00;
 }
 
 .cell {
     width: 100px;
     text-align: center;
+}
+
+.navigationCloseButton {    
+    right: 10px;
+    top: 8px;
+    justify-items: right;
+}
+
+.navigationButton {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    /* z-index: 1; */
+}
+
+.navigationText {    
+    font-size: 24;
+    cursor: "pointer";
 }

@@ -7,44 +7,72 @@ import * as AUTH from '../../constants/auth';
 import styles from './index.module.css';
 import { AuthUserContext } from '../Session';
 
-const Navigation = () => (
-  <div>
-<AuthUserContext.Consumer>
-    {authUser =>
-      authUser ? (
-        <NavigationAuth authUser={authUser} />
-      ) : (
-        <NavigationNonAuth />
-      )
+
+class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.isOpen = false;
+  }
+  toggleNav(e) {
+    let menu = document.getElementById("NavigationMenu");
+    // let main = document.getElementById("Main");
+    if (this.isOpen) {
+      this.isOpen = false;
+      menu.style.height = "0px";      
+    } else {
+      this.isOpen = true;
+      menu.style.height = "30px";      
     }
-  </AuthUserContext.Consumer>
-  </div>
-);
+  }
+  render() {
+    let self = this;
+    return (
+      <div>
+        <div className={styles.navigation} id="NavigationMenu">
+          <span className={styles.navigationMargin}>
+            <a href="javascript:void(0)" className={styles.navigationCloseButton} onClick={(e)=>{self.toggleNav(e)}}>&times;</a>
+            <AuthUserContext.Consumer>
+              {authUser =>
+                authUser ? (
+                  <NavigationAuth authUser={authUser} />
+                ) : (
+                  <NavigationNonAuth />
+                )
+              }
+            </AuthUserContext.Consumer>            
+          </span>
+        </div>
+        <NavigationButton open={(e)=>{self.toggleNav(e)}}></NavigationButton>
+      </div>
+    );
+  }
+}
 
-const NavigationAuth = ({ authUser }) => {
-  console.log("", AUTH);
-  // debugger
-  // return <div />;
-  return (
-  <div className={styles.navigation}>
-    <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>    
-    {/* <div className={styles.cell}><Link to={ROUTES.SIGN_IN}>Sign In</Link></div>          */}
-    <div className={styles.cell}><Link to={ROUTES.HOME}>Home</Link></div>
-    <div className={styles.cell}><Link to={ROUTES.ACCOUNT}>Account</Link></div>
-    {!!authUser.roles[AUTH.ADMIN] && (    
+class NavigationButton extends React.Component {
+
+  render() {   
+    let self = this;
+    return (<div className={styles.navigationButton}>
+      <span className={styles.navigationText} onClick={(e)=>{self.props.open(e)}}>&#9776; open</span>
+    </div>);
+  }
+}  
+
+const NavigationAuth = ({ authUser }) => {    
+  return [  
+    <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>,
+    <div className={styles.cell}><Link to={ROUTES.HOME}>Home</Link></div>,
+    <div className={styles.cell}><Link to={ROUTES.ACCOUNT}>Account</Link></div>,
+    <div>{!!authUser.roles[AUTH.ADMIN] && (    
         <div className={styles.cell}><Link to={ROUTES.ADMIN}>Admin</Link></div>    
-    )}
+    )}</div>,
     <div className={styles.cell}><SignOutButton /></div>
-      
-  </div>
-)};
+  ]};
 
-const NavigationNonAuth = () => (
-  <div className={styles.navigation}>
-    <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>
-    <div className={styles.cell}><Link to={ROUTES.SIGN_IN}>Sign In</Link></div>              
-  </div>
-);
+const NavigationNonAuth = () => ([
+  <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>,
+  <div className={styles.cell}><Link to={ROUTES.SIGN_IN}>Sign In</Link></div>                
+]);
 
  
 export default Navigation;
