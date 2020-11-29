@@ -1,0 +1,14 @@
+a {
+    text-decoration: none;
+}
+
+.navigation {
+    display:flex;
+    flex-direction:row;    
+    margin: 10px;
+}
+
+.cell {
+    width: 100px;
+    text-align: center;
+}
