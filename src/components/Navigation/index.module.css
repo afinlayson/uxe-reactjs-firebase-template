@@ -11,7 +11,7 @@
     /* padding-top: 20px; */
 }
 .navigationMargin { 
-    margin-top: 10px;
+    padding: 8px;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -43,11 +43,13 @@
 .navigationButton {
     position: absolute;
     right: 10px;
-    top: 8px;
+    top: 4px;
+    cursor: "pointer";
     /* z-index: 1; */
 }
 
 .navigationText {    
     font-size: 24;
     cursor: "pointer";
+    text-decoration: none;
 }

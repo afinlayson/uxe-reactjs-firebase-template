@@ -29,8 +29,7 @@ class Navigation extends React.Component {
     return (
       <div>
         <div className={styles.navigation} id="NavigationMenu">
-          <span className={styles.navigationMargin}>
-            <a href="javascript:void(0)" className={styles.navigationCloseButton} onClick={(e)=>{self.toggleNav(e)}}>&times;</a>
+          <span className={styles.navigationMargin}>            
             <AuthUserContext.Consumer>
               {authUser =>
                 authUser ? (
@@ -40,6 +39,7 @@ class Navigation extends React.Component {
                 )
               }
             </AuthUserContext.Consumer>            
+            <a href="javascript:void(0)" className={styles.navigationCloseButton} onClick={(e)=>{self.toggleNav(e)}}>&times;</a>
           </span>
         </div>
         <NavigationButton open={(e)=>{self.toggleNav(e)}}></NavigationButton>
@@ -53,7 +53,8 @@ class NavigationButton extends React.Component {
   render() {   
     let self = this;
     return (<div className={styles.navigationButton}>
-      <span className={styles.navigationText} onClick={(e)=>{self.props.open(e)}}>&#9776; open</span>
+      <a href="javascript:void(0)" className={styles.navigationText} onClick={(e)=>{self.props.open(e)}}>&#9776; open</a>
+      
     </div>);
   }
 }  
