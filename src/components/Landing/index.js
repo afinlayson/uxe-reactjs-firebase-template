@@ -1,25 +1,30 @@
 import React from 'react';
 import SignInPage from "../SignIn"; 
+import { withFirebase } from '../Firebase';
 
+import { AuthUserContext } from '../Session';
 
 class Landing extends React.Component {
 
+
+
   render() {
     // if(au)
-    let signin;
-
-    if (true) {      
-      signin = <SignInPage />
-    }
+    let signin;    
+    // if (this.props.firebase && this.props.firebase.isSignedIn()) {      
+    //   signin = 
+    // }
 
     return (
     <div>
       <h1>Landing</h1>
-      {signin}
+      <AuthUserContext.Consumer>
+        {authUser => !authUser ? <SignInPage /> : <div>Signed In</div>}
+      </AuthUserContext.Consumer>
     </div>
     );
   }
 }
 
 
-export default Landing;
+export default withFirebase(Landing);

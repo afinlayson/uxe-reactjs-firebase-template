@@ -41,27 +41,32 @@ class PasswordChangeForm extends Component {
       passwordOne !== passwordTwo || passwordOne === '';
  
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="New Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm New Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
- 
-        {error && <p>{error.message}</p>}
-      </form>
+      <div >
+        <div className="AuthSubtitle">Change Password</div>
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="New Password"
+            className="AuthPassword"
+          />
+          <input
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm New Password"
+            className="AuthPassword"
+          />
+          <button disabled={isInvalid} type="submit">
+            Reset My Password
+          </button>
+  
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
     );
   }
 }

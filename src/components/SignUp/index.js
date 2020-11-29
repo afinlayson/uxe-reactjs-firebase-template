@@ -5,13 +5,45 @@ import { Link, withRouter } from 'react-router-dom';
  
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import * as AUTH from '../../constants/auth.js'
+import {SignInFacebook, SignInTwitter, SignInGoogle} from '../SignIn';
  
-const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
-  </div>
-);
+const SignUpPage = () => {
+  
+  let fb;
+  let goog; 
+  let twitter;
+  let email;
+  let emailForgot;
+  let signup;
+
+  if (AUTH.FACEBOOK) {
+    fb = <SignInFacebook />;
+  }
+  if (AUTH.GOOGLE) {
+    goog = <SignInGoogle />
+  }
+  if (AUTH.TWITTER) {
+    twitter = <SignInTwitter />;
+  }
+  if (AUTH.EMAIL) {
+    email = <SignUpForm />
+    // emailForgot = <PasswordForgetLink />
+  }
+  
+  return (
+    <div className="AuthBox">
+      <h1 className="AuthTitle">SignUp</h1>
+      {email}
+      {fb}
+      {goog}
+      {twitter}
+      {emailForgot}
+      {signup}
+      <div className="AuthPadding" />
+    </div>
+  );
+}
 
 const INITIAL_STATE = {
     username: '',
@@ -75,41 +107,49 @@ class SignUpFormBase extends Component {
         username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
- 
-        {error && <p>{error.message}</p>}
-      </form>
+      <div className="AuthForm">
+        <form onSubmit={this.onSubmit}>
+          
+          <input
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Full Name"
+            className="AuthEmail"
+          />
+          <input
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+            className="AuthEmail"
+          />
+          <input
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+            className="AuthPassword"
+          />
+          <input
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm Password"
+            className="AuthPassword"
+          />
+          <button disabled={isInvalid} type="submit" className="AuthSubmit">
+            Sign Up
+          </button>
+        
+          {error && <p>{error.message}</p>}
+          <div className="AuthPadding" />
+        </form>
+      </div>
     );
   }
 
