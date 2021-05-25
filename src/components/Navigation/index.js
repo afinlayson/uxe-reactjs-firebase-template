@@ -59,21 +59,34 @@ class NavigationButton extends React.Component {
   }
 }  
 
-const NavigationAuth = ({ authUser }) => {    
-  return [  
-    <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>,
-    <div className={styles.cell}><Link to={ROUTES.HOME}>Home</Link></div>,
-    <div className={styles.cell}><Link to={ROUTES.ACCOUNT}>Account</Link></div>,
-    <div>{!!authUser.roles[AUTH.ADMIN] && (    
-        <div className={styles.cell}><Link to={ROUTES.ADMIN}>Admin</Link></div>    
-    )}</div>,
-    <div className={styles.cell}><SignOutButton /></div>
-  ]};
+const NavigationAuth = ({ authUser }) => { 
+  let items = [
+    {to: ROUTES.LANDING, name: "Landing"},
+    {to: ROUTES.HOME, name: "Home"},
+    {to: ROUTES.ACCOUNT, name: "Account"},        
+  ]
 
-const NavigationNonAuth = () => ([
-  <div className={styles.cell}><Link to={ROUTES.LANDING}>Landing</Link></div>,
-  <div className={styles.cell}><Link to={ROUTES.SIGN_IN}>Sign In</Link></div>                
-]);
+  if (!!authUser.roles[AUTH.ADMIN]) {
+    items.push({to: ROUTES.ADMIN, name: "Admin"});
+  }
+  
+  let rtn = items.map( item => (<div className={styles.cell} key={"NavigationAuth"+item.name}><Link to={item.to}>{item.name}</Link></div>))
+  rtn.push(<div className={styles.cell} key={"NavigationAuthSignOut"}><SignOutButton /></div>);
+  return rtn;
+}
+
+const NavigationNonAuth = () => {
+  let items = [
+    {to: ROUTES.LANDING, name: "Landing"},
+    {to: ROUTES.SIGN_IN, name: "Sign In"}
+  ]
+
+  let rtn = items.map( item => (<div className={styles.cell} key={"NavigationNonAuth"+item.name}><Link to={item.to}>{item.name}</Link></div>))
+  if (AUTH.ALWAYS_ALLOW_SIGNOUT) {
+    rtn.push(<div className={styles.cell}key={"NavigationNonAuthSignOut"}><SignOutButton /></div>);
+  }
+  return rtn;           
+};
 
  
 export default Navigation;

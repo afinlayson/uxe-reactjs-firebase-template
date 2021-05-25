@@ -132,8 +132,7 @@ class SignInGoogleBase extends Component {
     this.state = { error: null };
   }
 
-  onSubmit = event => {
-      debugger
+  onSubmit = event => {      
     this.props.firebase
       .signInWithGoogle()
       .then(socialAuthUser => {
