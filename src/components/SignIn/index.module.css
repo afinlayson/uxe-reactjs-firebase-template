@@ -79,3 +79,15 @@
     color: white;
     background: white;
 }
+
+.googleButton {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    /* left:50%; */
+    top:0px;    
+}

@@ -8,7 +8,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as AUTH from '../../constants/auth.js'
 
-// import style from './index.module.css';
+import style from './index.module.css';
 import '../Common/Auth.css';
  
 const SignInPage = () => {
@@ -132,11 +132,19 @@ class SignInGoogleBase extends Component {
     this.state = { error: null };
   }
 
+  componentDidUpdate() {
+    let signin = document.getElementById("GoogleLoginButton")
+    if (signin) {
+      this.props.firebase.google.signInWithElement(signin);
+    }
+  }
+
   onSubmit = event => {      
     this.props.firebase
       .signInWithGoogle()
       .then(socialAuthUser => {
         // Create a user in your Firebase Realtime Database too
+        debugger
         return this.props.firebase.user(socialAuthUser.user.uid).set({
           username: socialAuthUser.user.displayName,
           email: socialAuthUser.user.email,
@@ -162,6 +170,18 @@ class SignInGoogleBase extends Component {
 
   render() {
     const { error } = this.state;
+
+    if (AUTH.GOOGLEAPIs) {
+      // Note the Submit prevents the login from happening with GAPI, so we'll keep you on current page until we have login completed
+      // We need to add a page push after we login (aka without a submit)
+      return (
+        <div id="GoogleLoginButton" className="AuthLoginProvider">
+          <div className={style.googleButton}>
+            <img src="/Google/btn_google_signin_light_normal_web.png" alt="google icon" className="AuthLoginProviderImage"/>       
+          </div>
+        </div>
+      )
+    }
 
     return (
       <form onSubmit={this.onSubmit}>
