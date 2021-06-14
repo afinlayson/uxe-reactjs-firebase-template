@@ -73,8 +73,7 @@ export class GoogleAPI {
         
         if (this.auth2) {
             this.element = undefined
-            this.auth2.attachClickHandler(element, {},
-                
+            this.auth2.attachClickHandler(element, {},                
                 (googleUser) => {                        
                   this.updateUser(googleUser);
                   onCompletion(this, googleUser);
